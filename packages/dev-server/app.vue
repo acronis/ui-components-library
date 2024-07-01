@@ -7,7 +7,7 @@
 
   // import DirectionSwitch from '../documentation/.vitepress/components/direction-switch.vue';
 
-  // import ThemeSwitch from '../documentation/.vitepress/components/theme-switch.vue';
+  import ThemeSwitcher from '@/widgets/theme-switcher/themeSwitcher.vue';
 
   const router = useRouter();
   const panelShow = ref(false);
@@ -48,7 +48,7 @@
         <div class="dev-actions">
           <TogglePadding></TogglePadding>
         <!--          <DirectionSwitch></DirectionSwitch> -->
-        <!--          <ThemeSwitch></ThemeSwitch> -->
+          <ThemeSwitcher></ThemeSwitcher>
         </div>
       </div>
     </div>

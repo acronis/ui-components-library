@@ -6,6 +6,12 @@
   --acv-color-highlight: hsl(52deg, 100%, 50%);
   --acv-color-text-primary: var(--acv-color-black);
   --acv-color-text-on-primary: var(--acv-color-white);
+  --acv-color-primary-opacity-20: hsla(
+    from var(--acv-color-brand-primary) h,
+    s,
+    l,
+    0.2
+  );
   --acv-color-button-success: hsl(75deg, 68%, 45%);
   --acv-color-button-success-active: hsl(75deg, 68%, 35%);
   --acv-color-button-success-disabled: hsl(75deg, 68%, 45%, 0.3);

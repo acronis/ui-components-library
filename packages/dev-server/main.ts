@@ -1,5 +1,6 @@
-import '@/styles/public/acronis.css';
+import '@/styles/public/themes.css';
 import { createApp } from 'vue';
+import theme from '../documentation/demos/theme/theme.vue';
 
 const isDark = localStorage.getItem('uikit-docs-theme-prefer-dark');
 const isRtl = localStorage.getItem('uikit-docs-direction-prefer-rtl');
@@ -20,11 +21,8 @@ else {
 if (noPadding !== 'true') {
   document.documentElement.classList.add('padding');
 }
-
 if (__THEME__) {
-  import('./theme.vue').then((m) => {
-    createApp(m.default).mount('#app');
-  });
+  createApp(theme).mount('#app');
 }
 else {
   Promise.all([

@@ -21,6 +21,7 @@ export default defineConfig({
   test: {
     include: [
       'src/components/**/*.spec.{ts,tsx}',
+      'src/widgets/**/*.spec.{ts,tsx}',
       'src/composables/**/*.spec.{ts,tsx}',
       'src/plugins/**/*.spec.{ts,tsx}',
     ],

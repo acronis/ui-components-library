@@ -1,5 +1,6 @@
 :root,
-:root[data-theme="light"] {
+:root[data-theme="light"],
+:root[data-theme="acronis"] {
   /* colors */
   --acv-color-brand-primary: hsl(215deg, 68%, 46%);
   --acv-color-brand-secondary: hsl(218deg, 57%, 97%);

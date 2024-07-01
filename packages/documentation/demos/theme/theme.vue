@@ -1,12 +1,12 @@
-<script setup lang="ts">
+<script setup>
   import { ref } from 'vue';
   import { IChevronUp } from '@acronis-platform/icons';
-  import ThemeSwitch from '../documentation/.vitepress/components/theme-switch.vue';
-  import { defineFilter } from '../ui/src/components/table/index.ts';
+  import { defineFilter } from '@/components/table/index.ts';
+  import ThemeSwitch from '@/widgets/theme-switcher/themeSwitcher.vue';
 
   document.title = 'theme dev | Acronis UI Component Library';
 
-  const buttonTypes = [
+  const AcvButtonTypes = [
     'default',
     'primary',
     'dashed',
@@ -15,8 +15,8 @@
     'success',
     'warning',
     'error'
-  ] as const;
-  const buttonMeta = [
+  ];
+  const AcvButtonMeta = [
     { ghost: false, simple: false, disabled: false },
     { ghost: false, simple: false, disabled: true },
     { ghost: false, simple: true, disabled: false },
@@ -41,14 +41,14 @@
     'navy',
     'gold',
     'purple'
-  ] as const;
+  ];
   const tagMeta = [
     { border: false, simple: false },
     { border: true, simple: false },
     { border: false, simple: true }
   ];
 
-  const states = ['default', 'success', 'error', 'warning'] as const;
+  const states = ['default', 'success', 'error', 'warning'];
   const options = [
     { label: 'Option 1', value: 1 },
     { label: 'Option 2', value: 2 },
@@ -73,7 +73,7 @@
 
   const timeShortcuts = [{ name: 'Noon', value: '12:00:00' }];
 
-  const linkerTypes = ['default', 'primary', 'success', 'error', 'warning', 'info'] as const;
+  const linkerTypes = ['default', 'primary', 'success', 'error', 'warning', 'info'];
   const linkerMeta = [
     { disabled: false, underline: false, icon: null },
     { disabled: true, underline: false, icon: null },
@@ -82,11 +82,11 @@
   ];
 
   const tooltipMeta = [
-    { justify: 'center' as const, placements: ['top-start', 'top', 'top-end'] as const },
-    { justify: 'space-between' as const, placements: ['left-start', 'right-start'] as const },
-    { justify: 'space-between' as const, placements: ['left', 'right'] as const },
-    { justify: 'space-between' as const, placements: ['left-end', 'right-end'] as const },
-    { justify: 'center' as const, placements: ['bottom-start', 'bottom', 'bottom-end'] as const }
+    { justify: 'center', placements: ['top-start', 'top', 'top-end'] },
+    { justify: 'space-between', placements: ['left-start', 'right-start'] },
+    { justify: 'space-between', placements: ['left', 'right'] },
+    { justify: 'space-between', placements: ['left-end', 'right-end'] },
+    { justify: 'center', placements: ['bottom-start', 'bottom', 'bottom-end'] }
   ];
 
   const sliderMeta = states.map(state => ({ state, value: 20 + Math.random() * 40 }));
@@ -103,7 +103,7 @@
   const drawerActive = ref(false);
   const modalActive = ref(false);
 
-  const alertTypes = ['default', 'info', 'success', 'warning', 'error'] as const;
+  const alertTypes = ['default', 'info', 'success', 'warning', 'error'];
 
   const menuMeta = [
     { label: 'Menu 1', disabled: false },
@@ -113,10 +113,10 @@
   ];
 
   const messageTypes = [
-    { prefix: 'Normal', type: 'info' as const },
-    { prefix: 'Success', type: 'success' as const },
-    { prefix: 'Warning', type: 'warning' as const },
-    { prefix: 'Error', type: 'error' as const }
+    { prefix: 'Normal', type: 'info' },
+    { prefix: 'Success', type: 'success' },
+    { prefix: 'Warning', type: 'warning' },
+    { prefix: 'Error', type: 'error' }
   ];
   const messageOptions = {
     title: 'Title',
@@ -230,7 +230,7 @@
       { label: 'Starts with T', value: 'T' }
     ],
     multiple: true,
-    method(values, row: { lastName: string }) {
+    method(values, row) {
       for (const value of values) {
         if (row.lastName.startsWith(value)) {
           return true;
@@ -242,11 +242,11 @@
   });
 
   const timelineMeta = [
-    { date: '2022-05-24', content: 'Nice Day', type: 'default' as const },
-    { date: '2022-05-25', content: 'Nice Day', type: 'success' as const },
-    { date: '2022-05-26', content: 'Nice Day', type: 'warning' as const },
-    { date: '2022-05-27', content: 'Nice Day', type: 'error' as const },
-    { date: '2022-05-28', content: 'Nice Day', type: 'disabled' as const }
+    { date: '2022-05-24', content: 'Nice Day', type: 'default' },
+    { date: '2022-05-25', content: 'Nice Day', type: 'success' },
+    { date: '2022-05-26', content: 'Nice Day', type: 'warning' },
+    { date: '2022-05-27', content: 'Nice Day', type: 'error' },
+    { date: '2022-05-28', content: 'Nice Day', type: 'disabled' }
   ];
 </script>
 
@@ -268,7 +268,7 @@
         use-y-bar
       >
         <template
-          v-for="(meta, index) in buttonMeta"
+          v-for="(meta, index) in AcvButtonMeta"
           :key="index"
         >
           <div
@@ -278,10 +278,10 @@
             }"
           >
             <template
-              v-for="type in buttonTypes"
+              v-for="type in AcvButtonTypes"
               :key="type"
             >
-              <Button
+              <AcvButton
                 :type="type"
                 :simple="meta.simple"
                 :ghost="meta.ghost"
@@ -289,7 +289,7 @@
                 :icon="IChevronUp"
               >
                 {{ type.charAt(0).toLocaleLowerCase() + type.substring(1) }}
-              </Button>
+              </AcvButton>
             </template>
           </div>
           <br />
@@ -298,7 +298,7 @@
           v-for="(meta, index) in tagMeta"
           :key="index"
         >
-          <Tag
+          <AcvTag
             v-for="type in tagTypes"
             :key="type"
             closable
@@ -308,7 +308,7 @@
             :simple="meta.simple"
           >
             Tag
-          </Tag>
+          </AcvTag>
           <br />
           <br />
         </template>
@@ -335,11 +335,11 @@
           v-for="state in states"
           :key="state"
         >
-          <Select
+          <AcvSelect
             :options="options"
             :state="state"
             style="margin-inline-end: 20px"
-          ></Select>
+          ></AcvSelect>
           <AutoComplete
             :options="options"
             :state="state"
@@ -347,11 +347,11 @@
           <br />
           <br />
         </template>
-        <Select
+        <AcvSelect
           :options="options"
           disabled
           style="margin-inline-end: 20px"
-        ></Select>
+        ></AcvSelect>
         <AutoComplete
           :options="options"
           disabled
@@ -362,8 +362,8 @@
           v-for="state in states"
           :key="state"
         >
-          <CheckboxGroup :values="[checkItems[0], checkItems[4]]">
-            <Checkbox
+          <AcvCheckboxGroup :values="[checkItems[0], checkItems[4]]">
+            <AcvCheckbox
               v-for="(item, index) in checkItems"
               :key="item"
               :state="state"
@@ -371,23 +371,23 @@
               :disabled="index === 3 || index === 4"
               :control="index === 1"
               :partial="index === 1"
-            ></Checkbox>
-          </CheckboxGroup>
+            ></AcvCheckbox>
+          </AcvCheckboxGroup>
           <br />
         </template>
         <template
           v-for="(state, idx) in states"
           :key="state"
         >
-          <RadioGroup :value="checkItems[idx]">
-            <Radio
+          <AcvRadioGroup :value="checkItems[idx]">
+            <AcvRadio
               v-for="(item, index) in checkItems"
               :key="item"
               :state="state"
               :label="item"
               :disabled="index === 2 || index === 3"
-            ></Radio>
-          </RadioGroup>
+            ></AcvRadio>
+          </AcvRadioGroup>
           <br />
         </template>
         <br />
@@ -395,42 +395,42 @@
           v-for="state in states"
           :key="state"
         >
-          <Switch :state="state"></Switch>
-          <Switch
+          <AcvSwitch :state="state"></AcvSwitch>
+          <AcvSwitch
             :state="state"
             open-text="Open"
             close-text="Close"
-          ></Switch>
-          <Switch
+          ></AcvSwitch>
+          <AcvSwitch
             :state="state"
             disabled
-          ></Switch>
-          <Switch
+          ></AcvSwitch>
+          <AcvSwitch
             :state="state"
             disabled
             open-text="Open"
             close-text="Close"
-          ></Switch>
+          ></AcvSwitch>
           <br />
           <br />
         </template>
-        <ColorPicker alpha></ColorPicker>
+        <AcvColorPicker alpha></AcvColorPicker>
         <br />
         <br />
-        <DatePicker
+        <AcvDatePicker
           range
           clearable
           transfer
           type="datetime"
           :shortcuts="dateShortcuts"
-        ></DatePicker>
+        ></AcvDatePicker>
         <br />
         <br />
-        <TimePicker
+        <AcvTimePicker
           range
           clearable
           :shortcuts="timeShortcuts"
-        ></TimePicker>
+        ></AcvTimePicker>
         <br />
         <br />
         <template
@@ -463,50 +463,50 @@
             v-for="placement in meta.placements"
             :key="placement"
           >
-            <Tooltip
+            <AcvTooltip
               theme="dark"
               :placement="placement"
               transfer
             >
               <template #trigger>
                 <span style="padding: 0 5px">
-                  <Button>{{ placement }}</Button>
+                  <AcvButton>{{ placement }}</AcvButton>
                 </span>
               </template>
               {{ `The ${placement.split('-').join(' ')} text` }}
-            </Tooltip>
+            </AcvTooltip>
           </template>
         </Row>
         <br />
         <!-- <template v-for="state in states" :key="state">
-          <Slider :state="state" :value="20 + Math.random() * 40"></Slider>
+          <AcvSlider :state="state" :value="20 + Math.random() * 40"></AcvSlider>
         </template>
         <br /> -->
         <template
           v-for="meta in sliderMeta"
           :key="meta.state"
         >
-          <Slider
+          <AcvSlider
             :state="meta.state"
             :value="meta.value"
-          ></Slider>
+          ></AcvSlider>
         </template>
         <br />
         <template
           v-for="state in states"
           :key="state"
         >
-          <Textarea
+          <AcvTextarea
             :state="state"
             :max-length="100"
-          ></Textarea>
+          ></AcvTextarea>
           <br />
           <br />
         </template>
-        <Textarea
+        <AcvTextarea
           disabled
           :max-length="100"
-        ></Textarea>
+        ></AcvTextarea>
         <br />
         <br />
         <Collapse style="max-width: 600px">
@@ -540,19 +540,19 @@
         height="100%"
         use-y-bar
       >
-        <Button
+        <AcvButton
           type="info"
           @click="drawerActive = !drawerActive"
         >
           Open Drawer
-        </Button>
-        <Button
+        </AcvButton>
+        <AcvButton
           type="success"
           @click="modalActive = !modalActive"
         >
           Open Modal
-        </Button>
-        <!--        <Button -->
+        </AcvButton>
+        <!--        <AcvButton -->
         <!--          type="warning" -->
         <!--          @click=" -->
         <!--            Confirm.open({ -->
@@ -562,8 +562,8 @@
         <!--          " -->
         <!--        > -->
         <!--          Open Drawer -->
-        <!--        </Button> -->
-        <Drawer
+        <!--        </AcvButton> -->
+        <AcvDrawer
           v-model:active="drawerActive"
           transfer
           resizable
@@ -572,8 +572,8 @@
           <p>Some content</p>
           <p>Some content</p>
           <p>Some content</p>
-        </Drawer>
-        <Modal
+        </AcvDrawer>
+        <AcvModal
           v-model:active="modalActive"
           transfer
           draggable
@@ -584,32 +584,32 @@
           <p>Some content</p>
           <p>Some content</p>
           <p>Some content</p>
-        </Modal>
+        </AcvModal>
         <br />
         <br />
         <div style="display: flex">
-          <Button
+          <AcvButton
             type="primary"
             style="margin-inline-end: 20px"
             @click="spinActive = !spinActive"
           >
             Switch
-          </Button>
+          </AcvButton>
           <Spin
             :active="spinActive"
             tip="Loading..."
             style="width: 600px"
           >
-            <Alert
+            <AcvAlert
               icon
               type="success"
               title="Title"
             >
               Some alert content
-            </Alert>
+            </AcvAlert>
           </Spin>
         </div>
-        <Upload
+        <AcvUpload
           multiple
           manual
           select-to-add
@@ -617,7 +617,7 @@
           directory
           hidden-files
           style="max-width: 720px"
-        ></Upload>
+        ></AcvUpload>
         <TabNav>
           <TabNavItem
             v-for="meta in tabMeta"
@@ -644,14 +644,14 @@
           v-for="type in alertTypes"
           :key="type"
         >
-          <Alert
+          <AcvAlert
             icon
             closable
             :type="type"
             style="max-width: 720px"
           >
             Some alert content
-          </Alert>
+          </AcvAlert>
         </template>
         <template
           v-for="n in 2"
@@ -677,7 +677,7 @@
               :theme="n === 1 ? 'light' : 'dark'"
               style="width: 240px; margin-inline-end: 20px"
             >
-              <MenuItem
+              <AcvMenuItem
                 v-for="meta in menuMeta"
                 :key="meta.label"
                 :label="meta.label"
@@ -685,7 +685,7 @@
                 :disabled="meta.disabled"
               >
                 {{ meta.label }}
-              </MenuItem>
+              </AcvMenuItem>
             </Menu>
           </template>
         </div>
@@ -697,7 +697,7 @@
           <span style="padding: 0 10px">
             Color({{ meta.color ? '√' : '×' }}) Background({{ meta.background ? '√' : '×' }})
           </span>
-          <!--          <Button -->
+          <!--          <AcvButton -->
           <!--            v-for="type in messageTypes" -->
           <!--            :key="type.type" -->
           <!--            :type="type.type" -->
@@ -710,7 +710,7 @@
           <!--            " -->
           <!--          > -->
           <!--            {{ `${type.prefix}news` }} -->
-          <!--          </Button> -->
+          <!--          </AcvButton> -->
           <br />
           <br />
         </template>
@@ -721,7 +721,7 @@
           <span style="padding: 0 10px">
             Color({{ meta.color ? '√' : '×' }}) Background({{ meta.background ? '√' : '×' }})
           </span>
-          <!--          <Button -->
+          <!--          <AcvButton -->
           <!--            v-for="type in messageTypes" -->
           <!--            :key="type.type" -->
           <!--            :type="type.type" -->
@@ -734,7 +734,7 @@
           <!--            " -->
           <!--          > -->
           <!--            {{ `${type.prefix}warn` }} -->
-          <!--          </Button> -->
+          <!--          </AcvButton> -->
           <br />
           <br />
         </template>
@@ -742,7 +742,7 @@
           v-for="(meta, index) in paginationMeta"
           :key="index"
         >
-          <Pagination
+          <AcvPagination
             page-jump
             page-total
             page-count
@@ -751,7 +751,7 @@
             :total="100"
             :page-size="10"
             :max-count="8"
-          ></Pagination>
+          ></AcvPagination>
         </template>
         <br />
         <br />
@@ -761,17 +761,17 @@
           :width="700"
           :height="200"
         >
-          <TableColumn
+          <AcvTableColumn
             type="selection"
             id-key="selection"
             fixed
-          ></TableColumn>
-          <TableColumn
+          ></AcvTableColumn>
+          <AcvTableColumn
             type="order"
             id-key="order"
             fixed
-          ></TableColumn>
-          <TableColumn
+          ></AcvTableColumn>
+          <AcvTableColumn
             type="expand"
             id-key="expand"
             fixed
@@ -792,38 +792,38 @@
                 </Cell>
               </Grid>
             </template>
-          </TableColumn>
-          <TableColumn
+          </AcvTableColumn>
+          <AcvTableColumn
             name="First Name"
             id-key="firstName"
             sorter
             :width="300"
-          ></TableColumn>
-          <TableColumn
+          ></AcvTableColumn>
+          <AcvTableColumn
             name="Last Name"
             id-key="lastName"
             :width="300"
             :filter="tableFilter"
-          ></TableColumn>
-          <TableColumn
+          ></AcvTableColumn>
+          <AcvTableColumn
             name="Job"
             id-key="job"
             :order="3"
             fixed="right"
-          ></TableColumn>
-          <TableColumn
+          ></AcvTableColumn>
+          <AcvTableColumn
             name="Age"
             id-key="age"
             :order="2"
             :width="300"
-          ></TableColumn>
-          <TableColumn
+          ></AcvTableColumn>
+          <AcvTableColumn
             name="Long Text"
             id-key="longText"
             :width="300"
           >
-            很长的文本很长的文本很长的文本很长的文本很长的文本很长的文本很长的文本
-          </TableColumn>
+            Very long text Very long text Very long text Very long text Very long text
+          </AcvTableColumn>
         </Table>
         <br />
         <div style="display: flex">
@@ -839,9 +839,9 @@
               <p style="margin: 0 0 6px">
                 {{ meta.date }}
               </p>
-              <Card style="width: 100%">
+              <AcvCard style="width: 100%">
                 {{ meta.content }}
-              </Card>
+              </AcvCard>
             </TimelineItem>
           </Timeline>
           <Timeline
@@ -856,14 +856,14 @@
               <p style="margin: 0 0 6px">
                 {{ meta.date }}
               </p>
-              <Card>{{ meta.content }}</Card>
+              <AcvCard>{{ meta.content }}</AcvCard>
             </TimelineItem>
           </Timeline>
         </div>
         <Bubble> Some content in bubble </Bubble>
         <br />
         <br />
-        <Carousel
+        <AcvCarousel
           loop
           arrow="inside"
           pointer="outside"
@@ -871,21 +871,21 @@
           :view-size="1"
           :autoplay="5000"
         >
-          <CarouselItem
+          <AcvCarouselItem
             v-for="n in 5"
             :key="n"
           >
             <div class="carousel-block">
               Content {{ n }}
             </div>
-          </CarouselItem>
-        </Carousel>
-        <Carousel
+          </AcvCarouselItem>
+        </AcvCarousel>
+        <AcvCarousel
           loop
           :active-offset="1"
           style="width: 720px"
         >
-          <CarouselItem
+          <AcvCarouselItem
             v-for="n in 5"
             :key="n"
           >
@@ -897,8 +897,8 @@
                 Content {{ n }}
               </div>
             </template>
-          </CarouselItem>
-        </Carousel>
+          </AcvCarouselItem>
+        </AcvCarousel>
         <br />
         <br />
       </NativeScroll>
@@ -908,22 +908,21 @@
 
 <style lang="css">
 *,
-*::before,
-*::after {
+*:before,
+*:after {
   box-sizing: border-box;
 }
 
 html {
-  --bg-color: #fff;
+  --bg-color: hsl(0deg, 0%, 100%);
   --body-bg-color: var(--acv-color-tertiary-background);
-  --ghost-bg-color: #234;
+  --ghost-bg-color: hsl(210deg, 33%, 20%);
   --ghost-padding: 10px;
-
   height: 100%;
 
   &.dark {
-    --bg-color: #131719;
-    --body-bg-color: #1b1b1b;
+    --bg-color: hsl(200deg, 14%, 9%);
+    --body-bg-color: hsl(0deg, 0%, 11%);
     --ghost-bg-color: transparent;
     --ghost-padding: 0;
   }
@@ -951,8 +950,8 @@ body {
   width: 100%;
   height: calc(100% - 50px);
   background-color: var(--bg-color);
-  border: var(--acv-border-base);
-  border-radius: var(--acv-border-radius-large);
+  border: var(--acv-border-regular);
+  border-radius: var(--acv-radius-large);
   transition: var(--acv-transition-background), var(--acv-transition-border);
 
   & > .acv-split__pane {
@@ -990,9 +989,9 @@ body {
   justify-content: center;
   width: 100%;
   height: 160px;
-  font-size: 30px;
-  color: #fff;
-  background-color: var(--acv-color-primary-opacity-2);
+  font-size: var(--acv-font-size-display);
+  color: var(--acv-color-black);
+  background-color: var(--acv-color-primary-opacity-20);
   transition: transform 250ms;
 }
 </style>
